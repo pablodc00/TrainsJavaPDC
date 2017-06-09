@@ -1,19 +1,19 @@
 package com.thoughtworks.trains;
 
-public class Town<T> {
+public class Town<E> {
     
-    private T town;
+    private String town;
     
-    public Town(T town) {
+    public Town(String town) {
         this.town = town;
     }
 
     
-    public T getTown() {
+    public String getTown() {
         return town;
     }
 
-    public void setTown(T town) {
+    public void setTown(String town) {
         this.town = town;
     }
 

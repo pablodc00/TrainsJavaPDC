@@ -1,28 +1,28 @@
 package com.thoughtworks.trains;
 
-public class Route<T,E> {
+public class Route {
 
-    private T town;
-    private E distance;
+    private Town<String> town;
+    private int distance;
     
-    public Route(T town, E distance) {
+    public Route(Town<String> town, int distance) {
         this.town = town;
         this.distance = distance;
     }
 
-    public T getTown() {
+    public Town<String> getTown() {
         return town;
     }
 
-    public void setTown(T town) {
+    public void setTown(Town<String> town) {
         this.town = town;
     }
 
-    public E getDistance() {
+    public int getDistance() {
         return distance;
     }
 
-    public void setDistance(E distance) {
+    public void setDistance(int distance) {
         this.distance = distance;
     }
     
