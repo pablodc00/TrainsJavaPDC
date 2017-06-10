@@ -12,7 +12,7 @@ public class TrainsRoutesTest {
 
     TrainsRoutes trainsRoutes = new TrainsRoutes("AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7");        
     
-    //@Test
+    @Test
     public void buildTrainsRoutesTest() {
         Town<String> town = new Town<>("A");
         List<Route> routes = trainsRoutes.getTrainsMap().get(town);
@@ -23,7 +23,7 @@ public class TrainsRoutesTest {
         assertEquals(routes.size(), 2);        
     }
     
-    //@Test
+    @Test
     public void distanceOfRouteTest() {
         //Test The distance of the route A-B-C.
         List<Town<String>> towns = new ArrayList<>();
@@ -48,13 +48,21 @@ public class TrainsRoutesTest {
     }
     
     @Test
-    public void numberOfTripsTest() {
+    public void numberOfTripsMaxStopsTest() {
         //Test the number of trips starting at C and ending at C with a maximum of 3 stops.
         //In the sample data below, there are two such trips: C-D-C (2 stops). and C-E-B-C (3 stops).
         Town<String> start = new Town<>("C");
         Town<String> end = new Town<>("C");
-        assertEquals(trainsRoutes.numberOfTrips(start, end, 3), "2");
+        assertEquals(trainsRoutes.numberOfTripsMaxStops(start, end, 3), "2");
         
+    }
+    
+    @Test
+    public void numberOfTripsExacltyStopsTest() {
+        //Test the number of trips starting at A and ending at C with exactly 4 stops.
+        //In the sample data below, there are three such trips: A to C (via B,C,D); A to C (via D,C,D); 
+        //and A to C (via D,E,B).
+        assertTrue(true);
     }
     
 }

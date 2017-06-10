@@ -38,7 +38,7 @@ public class TrainsRoutes {
     }
 
     /**
-     * Answers questions 1-5.
+     * Answer questions 1-5.
      * Calculate distance of the given route.
      * Assume listOfTowns has more than one element.
      * @param listOfTowns
@@ -74,17 +74,17 @@ public class TrainsRoutes {
 
 
     /**
-     * Answers question 6.
+     * Answer question 6.
      * @param start
      * @param end
      * @param maxStops
      * @return The number of trips starting at start and ending at end with a maximum of maxStops stops.
      */
-    public String numberOfTrips(Town<String> start, Town<String> end, int maxStops) {        
+    public String numberOfTripsMaxStops(Town<String> start, Town<String> end, int maxStops) {        
         AtomicInteger counter = new AtomicInteger();
         Deque<Town<String>> queue = new LinkedList<>();
         
-        countTrips(start, end, maxStops, queue, counter);
+        countTripsMaxStops(start, end, maxStops, queue, counter);
         
         return String.valueOf(counter.get());
     }
@@ -97,7 +97,7 @@ public class TrainsRoutes {
      * @param queue
      * @param counter
      */
-    private void countTrips(Town<String> start, Town<String> end, int maxStops, 
+    private void countTripsMaxStops(Town<String> start, Town<String> end, int maxStops, 
             Deque<Town<String>> queue, AtomicInteger counter) {
         
         if (queue.size() < maxStops) {
@@ -109,7 +109,7 @@ public class TrainsRoutes {
                     counter.incrementAndGet();
                 } else if (!queue.contains(currentTown)) {
                     queue.add(currentTown);
-                    countTrips(currentTown, end, maxStops, queue, counter);
+                    countTripsMaxStops(currentTown, end, maxStops, queue, counter);
                     queue.removeLast();
                 }
             }
@@ -117,6 +117,17 @@ public class TrainsRoutes {
     }
     
     
+    /**
+     * Answer question 7.
+     * @param start
+     * @param end
+     * @param exacltyStops
+     * @return The number of trips starting at start and ending at end with exactly exacltyStops stops.
+     */
+    public String numberOfTripsExacltyStops(Town<String> start, Town<String> end, int exacltyStops) {
+        
+        return null;
+    }
     
     public Map<Town<String>, List<Route>> getTrainsMap() {
         return trainsMap;
