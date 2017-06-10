@@ -82,7 +82,7 @@ public class TrainsRoutes {
      */
     public String numberOfTripsMaxStops(Town<String> start, Town<String> end, int maxStops) {        
         AtomicInteger counter = new AtomicInteger();
-        Deque<Town<String>> queue = new LinkedList<>();
+        Deque<Route> queue = new LinkedList<>();
         
         countTripsMaxStops(start, end, maxStops, queue, counter);
         
@@ -98,21 +98,20 @@ public class TrainsRoutes {
      * @param counter
      */
     private void countTripsMaxStops(Town<String> start, Town<String> end, int maxStops, 
-            Deque<Town<String>> queue, AtomicInteger counter) {
+            Deque<Route> queue, AtomicInteger counter) {
         
         if (queue.size() < maxStops) {
             Town<String> currentTown = null;
             List<Route> routes = trainsMap.get(start);
-            for (Route route : routes) {
+            for (Route route : routes) {                
                 currentTown = route.getTown();
                 if (currentTown.equals(end)) {
                     counter.incrementAndGet();
-                } else if (!queue.contains(currentTown)) {
-                    queue.add(currentTown);
-                    countTripsMaxStops(currentTown, end, maxStops, queue, counter);
-                    queue.removeLast();
                 }
-            }
+                queue.addLast(route);
+                countTripsMaxStops(currentTown, end, maxStops, queue, counter);
+                queue.removeLast();
+            } 
         }
     }
     
@@ -125,9 +124,37 @@ public class TrainsRoutes {
      * @return The number of trips starting at start and ending at end with exactly exacltyStops stops.
      */
     public String numberOfTripsExacltyStops(Town<String> start, Town<String> end, int exacltyStops) {
+        AtomicInteger counter = new AtomicInteger();
+        Deque<Route> queue = new LinkedList<>();
         
-        return null;
+        countTripsExacltyStops(start, end, exacltyStops, queue, counter);
+        
+        return String.valueOf(counter.get());
     }
+    
+    
+
+    private void countTripsExacltyStops(Town<String> start, Town<String> end, int exacltyStops, 
+            Deque<Route> queue, AtomicInteger counter) {
+       
+        if (queue.size() < exacltyStops) {
+            Town<String> currentTown = null;
+            List<Route> routes = trainsMap.get(start);
+            for (Route route : routes) {
+
+                currentTown = route.getTown();
+                if (currentTown.equals(end) && queue.size() == exacltyStops -1) {
+                    counter.incrementAndGet();
+                }
+                queue.addLast(route);
+                countTripsExacltyStops(currentTown, end, exacltyStops, queue, counter);
+                queue.removeLast();
+
+            } 
+        }      
+    }
+    
+    
     
     public Map<Town<String>, List<Route>> getTrainsMap() {
         return trainsMap;

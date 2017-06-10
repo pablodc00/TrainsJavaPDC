@@ -62,7 +62,9 @@ public class TrainsRoutesTest {
         //Test the number of trips starting at A and ending at C with exactly 4 stops.
         //In the sample data below, there are three such trips: A to C (via B,C,D); A to C (via D,C,D); 
         //and A to C (via D,E,B).
-        assertTrue(true);
+        Town<String> start = new Town<>("A");
+        Town<String> end = new Town<>("C");
+        assertEquals(trainsRoutes.numberOfTripsExacltyStops(start, end, 4), "3");
     }
     
 }
