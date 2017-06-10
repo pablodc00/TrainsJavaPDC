@@ -1,8 +1,8 @@
 package com.thoughtworks.trains;
 
 /**
- * Hello world!
- *
+ * TrainsJavaPDC
+ * ThoughtWorks Problem one: Trains
  */
 public class App 
 {
