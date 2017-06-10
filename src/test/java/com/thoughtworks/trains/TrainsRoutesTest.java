@@ -67,4 +67,18 @@ public class TrainsRoutesTest {
         assertEquals(trainsRoutes.numberOfTripsExacltyStops(start, end, 4), "3");
     }
     
+    @Test
+    public void lengthShortestRouteTest() {
+        //Test the length of the shortest route (in terms of distance to travel) from A to C.
+        Town<String> start = new Town<>("A");
+        Town<String> end = new Town<>("C");
+        assertEquals(trainsRoutes.lengthShortestRoute(start, end), "9");        
+
+
+        //Test length of the shortest route (in terms of distance to travel) from B to B.
+        start = new Town<>("B");
+        end = new Town<>("B");
+        assertEquals(trainsRoutes.lengthShortestRoute(start, end), "9");  
+        
+    }
 }

@@ -86,17 +86,9 @@ public class TrainsRoutes {
         
         countTripsMaxStops(start, end, maxStops, queue, counter);
         
-        return String.valueOf(counter.get());
+        return counter.toString();
     }
     
-    /**
-     * Recursive method to go over graph.
-     * @param start
-     * @param end
-     * @param maxStops
-     * @param queue
-     * @param counter
-     */
     private void countTripsMaxStops(Town<String> start, Town<String> end, int maxStops, 
             Deque<Route> queue, AtomicInteger counter) {
         
@@ -129,9 +121,8 @@ public class TrainsRoutes {
         
         countTripsExacltyStops(start, end, exacltyStops, queue, counter);
         
-        return String.valueOf(counter.get());
+        return counter.toString();
     }
-    
     
 
     private void countTripsExacltyStops(Town<String> start, Town<String> end, int exacltyStops, 
@@ -154,6 +145,50 @@ public class TrainsRoutes {
         }      
     }
     
+    
+    /**
+     * Answer questions 8,9.
+     * @param start
+     * @param end
+     * @return The length of the shortest route (in terms of distance to travel) from start to end.
+     */
+    public String lengthShortestRoute(Town<String> start, Town<String> end) {
+        //AtomicInteger minDistance = new AtomicInteger(999999);
+        ThreadLocal<Integer> minDistance = new ThreadLocal<>();
+        minDistance.set(999999);
+        int sumDistance = 0;
+        Deque<Town<String>> queue = new LinkedList<>();
+        
+        calculateShortestRoute(start, end, queue, minDistance, sumDistance);
+        
+        return minDistance.get().toString();
+    }
+    
+    
+    private void calculateShortestRoute(Town<String> start, Town<String> end, Deque<Town<String>> queue, ThreadLocal<Integer> minDistance, int sumDistance) {
+
+            Town<String> currentTown = null;
+            List<Route> routes = trainsMap.get(start);
+            for (Route route : routes) {
+
+                currentTown = route.getTown();
+
+                if (currentTown.equals(end)) {
+                    if (sumDistance + route.getDistance() < minDistance.get()) {
+                        minDistance.set(sumDistance + route.getDistance());
+                        continue;
+                    }
+                }
+                
+                if (!queue.contains(currentTown)) {
+                    queue.addLast(currentTown);
+                    sumDistance += route.getDistance();
+                    calculateShortestRoute(currentTown, end, queue, minDistance, sumDistance);
+                    sumDistance -= route.getDistance();
+                    queue.removeLast();
+                }
+            }
+    }
     
     
     public Map<Town<String>, List<Route>> getTrainsMap() {
