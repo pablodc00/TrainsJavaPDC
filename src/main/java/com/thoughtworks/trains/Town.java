@@ -17,5 +17,13 @@ public class Town<E> {
         this.town = town;
     }
 
+    @Override
+    public boolean equals(Object obj) {     
+        return this.getTown().equals(((Town<?>)obj).getTown());
+    }
     
+    @Override
+    public int hashCode() {
+        return this.getTown().hashCode();
+    }
 }

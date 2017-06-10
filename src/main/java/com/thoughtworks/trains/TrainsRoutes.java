@@ -24,7 +24,7 @@ public class TrainsRoutes {
         Town<String> town = null;
         Town<String> routeTown = null;
         Route route = null;
-        List<String> listOfInput = Arrays.asList(input.split(","));
+        List<String> listOfInput = Arrays.asList(input.split("[\\s]*,[\\s]*"));
         for (String string : listOfInput) {
             town = new Town<>(string.substring(0, 1));
             routeTown = new Town<>(string.substring(1, 2));
@@ -41,7 +41,7 @@ public class TrainsRoutes {
      * @return The distance of the route
      */
     public String distanceOfRoute(List<Town<String>> listOfTowns) {
-        final String NOT_FOUND = "NO SUCH ROUTE";
+
         int distance = 0;
         int currentIndex = 0;
         List<Route> routes = null;
@@ -49,15 +49,15 @@ public class TrainsRoutes {
         
         for (Town<String> town : listOfTowns) {
             currentIndex = listOfTowns.indexOf(town);
-            final Town<String> nextTown = listOfTowns.get(currentIndex +1);
-            if (currentIndex > 0 && currentIndex <  listOfTowns.size() -1) {
+            if (currentIndex <  listOfTowns.size() -1) {
+                final Town<String> nextTown = listOfTowns.get(currentIndex +1);
                 routes = trainsMap.get(town);
                 route = routes.stream()
                     .filter(r -> r.getTown().equals(nextTown))
                     .findFirst()
                     .orElse(null);
                 if (null == route) {
-                    return NOT_FOUND;
+                    return Constants.NOT_FOUND;
                 } else {
                     distance += route.getDistance();
                 }
@@ -67,5 +67,15 @@ public class TrainsRoutes {
         
         return String.valueOf(distance);
     }
-    
+
+
+    public Map<Town<String>, List<Route>> getTrainsMap() {
+        return trainsMap;
+    }
+
+
+    public void setTrainsMap(Map<Town<String>, List<Route>> trainsMap) {
+        this.trainsMap = trainsMap;
+    }
+
 }
