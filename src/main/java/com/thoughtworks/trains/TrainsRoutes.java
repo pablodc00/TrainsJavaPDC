@@ -2,9 +2,12 @@ package com.thoughtworks.trains;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class TrainsRoutes {
     
@@ -35,6 +38,7 @@ public class TrainsRoutes {
     }
 
     /**
+     * Answers questions 1-5.
      * Calculate distance of the given route.
      * Assume listOfTowns has more than one element.
      * @param listOfTowns
@@ -69,6 +73,51 @@ public class TrainsRoutes {
     }
 
 
+    /**
+     * Answers question 6.
+     * @param start
+     * @param end
+     * @param maxStops
+     * @return The number of trips starting at start and ending at end with a maximum of maxStops stops.
+     */
+    public String numberOfTrips(Town<String> start, Town<String> end, int maxStops) {        
+        AtomicInteger counter = new AtomicInteger();
+        Deque<Town<String>> queue = new LinkedList<>();
+        
+        countTrips(start, end, maxStops, queue, counter);
+        
+        return String.valueOf(counter.get());
+    }
+    
+    /**
+     * Recursive method to go over graph.
+     * @param start
+     * @param end
+     * @param maxStops
+     * @param queue
+     * @param counter
+     */
+    private void countTrips(Town<String> start, Town<String> end, int maxStops, 
+            Deque<Town<String>> queue, AtomicInteger counter) {
+        
+        if (queue.size() < maxStops) {
+            Town<String> currentTown = null;
+            List<Route> routes = trainsMap.get(start);
+            for (Route route : routes) {
+                currentTown = route.getTown();
+                if (currentTown.equals(end)) {
+                    counter.incrementAndGet();
+                } else if (!queue.contains(currentTown)) {
+                    queue.add(currentTown);
+                    countTrips(currentTown, end, maxStops, queue, counter);
+                    queue.removeLast();
+                }
+            }
+        }
+    }
+    
+    
+    
     public Map<Town<String>, List<Route>> getTrainsMap() {
         return trainsMap;
     }
