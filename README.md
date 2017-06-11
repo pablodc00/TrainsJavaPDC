@@ -1,9 +1,10 @@
 # TrainsJavaPDC
 ThoughtWorks Problem one: Trains
 
-
-Java 8
-Maven 3.3.3
+Technology:
+	
+	Java 8
+	Maven 3.3.3
 
 1) Generate eclipse project:
 	
@@ -18,6 +19,9 @@ Maven 3.3.3
 	mvn -Dtest=TrainsRoutesTest test
 
 
+Project in github:
+	
+	https://github.com/pablodc00/TrainsJavaPDC/
 
 Assumpitions:
 Graph data input format will be in the right way e.g.:
