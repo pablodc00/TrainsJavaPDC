@@ -5,6 +5,13 @@ Technology:
 	
 	Java 8
 	Maven 3.3.3
+	
+	
+Notes:
+
+	The design that I chose is a Map with Towns as a key and a list of Route, those Route have target Town with distance weight. 
+	The main strategy to resolve each problems was implement recursion algorithms.
+	An improvement could be add Town source to Route class, current Route has only target Town.	
 
 1) Generate eclipse project:
 	
@@ -28,8 +35,8 @@ Graph data input format will be in the right way e.g.:
 AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7
 
 
-Notes:
-An improvement could be add Town source to Route class, current Route has only target Town.  
+
+
 
 
 Problem:
