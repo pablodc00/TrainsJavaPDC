@@ -81,4 +81,14 @@ public class TrainsRoutesTest {
         assertEquals(trainsRoutes.lengthShortestRoute(start, end), "9");  
         
     }
+    
+    @Test
+    public void numberDifferenRoutesTest() {
+        //Test the number of different routes from C to C with a distance of less than 30.
+        //In the sample data, the trips are: CDC, CEBC, CEBCDC, CDCEBC, CDEBC, CEBCEBC, CEBCEBCEBC.
+        Town<String> start = new Town<>("C");
+        Town<String> end = new Town<>("C");
+        assertEquals(trainsRoutes.numberDifferenRoutes(start, end, 30), "7");
+
+    }
 }

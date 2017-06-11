@@ -190,7 +190,46 @@ public class TrainsRoutes {
             }
     }
     
-    
+    /**
+     * Answer question 10.
+     * @param start
+     * @param end
+     * @return The number of different routes from start to ed with a distance of less than given number
+     */
+    public String numberDifferenRoutes(Town<String> start, Town<String> end, int maxDistance) {
+        int sumDistance = 0;
+        AtomicInteger counter = new AtomicInteger();
+        
+        calculateDifferenRoutes(start, end, maxDistance, counter, sumDistance);
+        
+        return counter.toString();
+    }
+
+
+    private void calculateDifferenRoutes(Town<String> start, Town<String> end, int maxDistance, 
+            AtomicInteger counter, int sumDistance) {
+        
+        Town<String> currentTown = null;
+        List<Route> routes = trainsMap.get(start);
+        for (Route route : routes) {
+
+            currentTown = route.getTown();
+            if (sumDistance + route.getDistance() >= maxDistance) {
+                continue;
+            }
+            
+            if (currentTown.equals(end)) {
+                counter.getAndIncrement();
+            }
+            
+            sumDistance += route.getDistance();
+            calculateDifferenRoutes(currentTown, end, maxDistance, counter, sumDistance);
+            sumDistance -= route.getDistance();
+        }
+        
+    }
+
+
     public Map<Town<String>, List<Route>> getTrainsMap() {
         return trainsMap;
     }
