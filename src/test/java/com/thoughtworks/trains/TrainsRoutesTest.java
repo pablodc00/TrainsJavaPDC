@@ -34,7 +34,7 @@ public class TrainsRoutesTest {
         town = new Town<>("C");
         towns.add(town);        
         assertEquals(trainsRoutes.distanceOfRoute(towns), "9");
-        
+
         //Test The distance of the route A-E-D
         towns.clear();
         town = new Town<>("A");
